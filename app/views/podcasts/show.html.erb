@@ -1,0 +1,139 @@
+<div class="podcast-details">
+  
+  <div class="episode-status">
+    <% if user_signed_in? && (user_episode = current_user.episodes.find_by(spotify_id: @episode.id)) %>
+      <% if user_episode.played %>
+        <span class="status played">Played</span>
+      <% else %>
+        <span class="status unplayed">Not Played</span>
+      <% end %>
+
+      <% if user_episode.finished %>
+        <span class="status finished">Finished</span>
+      <% else %>
+        <span class="status unfinished">Not Finished</span>
+      <% end %>
+    <% else %>
+      <span class="status none">Add to favorites to track status!</span>
+    <% end %>
+  </div>
+
+  <h1 class="episode-title"><%= @episode.name %></h1>
+  <div class="subscribe-container">
+    <% if user_signed_in? %>
+      <% subscription = current_user.subscriptions.find_by(show_id: @episode.show.id) %>
+      <% if subscription %>
+        <%= button_to "Unsubscribe", subscription_path(subscription), method: :delete, class: "button", data: { confirm: "Are you sure you want to unsubscribe from #{subscription.show_name}?" } %>
+      <% else %>
+        <%= button_to "Subscribe", subscriptions_path(show_id: @episode.show.id, show_name: @episode.show.name), method: :post, class: "button" %>
+      <% end %>
+    <% else %>
+      <p>You must <%= link_to "sign in", new_user_session_path %> to subscribe.</p>
+    <% end %>
+    <h4><%= @episode.show.name %></h4>
+  </div>
+
+  <div class="player-container">
+    <iframe 
+      class="podcast-player" 
+      src="https://open.spotify.com/embed/episode/<%= @episode.id %>" 
+      width="100%" 
+      height="152" 
+      frameborder="0" 
+      allowfullscreen 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
+
+  <div class="podcast-actions">
+    <% if current_user.episodes&.exists?(spotify_id: @episode.id) %>
+      <%= button_to '- Remove from Favorites', 
+                  unfavorite_podcast_path(id: @episode.id), 
+                  method: :delete,
+                   class: 'button' %>
+      
+      <% user_episode = current_user.episodes.find_by(spotify_id: @episode.id) %>
+      
+      <% if user_episode.played %>
+        <%= button_to 'Mark as Unplayed', 
+                    unplayed_podcast_path(id: @episode.id),
+                    method: :patch,
+                    class: 'button' %>
+      <% else %>
+        <%= button_to 'Mark as Played', 
+                    played_podcast_path(id: @episode.id),
+                    method: :patch,
+                    class: 'button' %>
+      <% end %>
+
+      <% if user_episode.finished %>
+        <%= button_to 'Mark as Unfinished', 
+                    unfinished_podcast_path(id: @episode.id),
+                    method: :patch,
+                    class: 'button' %>
+      <% else %>
+        <%= button_to 'Mark as Finished', 
+                    finished_podcast_path(id: @episode.id),
+                    method: :patch,
+                    class: 'button' %>
+      <% end %>
+    <% else %>
+      <%= button_to '+ Add to Favorites', 
+                  favorite_podcast_path(episode_id: @episode.id),
+                  method: :post,  
+                  class: 'button' %>
+    <% end %>
+  </div>
+
+  <div class="episode-info">
+    <h2>Language: <span><%= I18nData.languages[@episode.language.upcase] %></span></h2>
+    <h2>Description:</h2>
+    <p><%= @episode.description %></p>
+    <h2>Release Date: <span><%= @episode.release_date %></span></h2>
+    <h2>Similar Episodes</h2>
+    <ul class="episode-list">
+      <% @episode.show.episodes.take(5).each do |episode| %>
+        <li>
+          <%= link_to episode.name, podcast_path(id: episode.id), class: "episode-link" %>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+
+  <div class="feedback-form">
+    <% if user_signed_in? %>
+      <p class="current-user">Commenting as: <span><%= current_user.email %></span></p>
+    <% end %>
+
+    <%= form_with(model: @feedback, url: podcast_feedbacks_path(@episode.id), local: true, class: "feedback-form") do |f| %>
+      <div class="form-group">
+        <%= f.label :rating %>
+        <%= f.select :rating, options_for_select(1..5), class: "rating-select" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :comment %>
+        <%= f.text_area :comment, class: "comment-textarea" %>
+      </div>
+      <%= f.hidden_field :podcast_id, value: @episode.id %>
+      <%= f.submit "Submit Feedback", class: "submit-button" %>
+    <% end %>
+  </div>
+
+  <div class="existing-feedbacks">
+    <h3>Feedback</h3>
+    <% @feedbacks.each do |feedback| %>
+      <div class="feedback-item">
+        <div>
+          <% feedback.rating.times do %>★<% end %><% (5 - feedback.rating).times do %>☆<% end %>
+        </div>
+        <p><strong>Commented by: <%= feedback.user&.email || "Anon" %></p>
+        <p>Comment: <%= feedback.comment %></p>
+        <div class="feedback-actions">
+          <%= link_to 'Edit', edit_podcast_feedback_path(@episode.id, feedback), class: 'button edit-button' %>
+          <%= button_to 'Delete', podcast_feedback_path(@episode.id, feedback), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'button delete-button' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

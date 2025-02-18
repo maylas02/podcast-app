@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Podcast" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <div class="user-info">
+    <% if user_signed_in? %>
+     
+      <%= link_to '⌕ Search', podcasts_path %> 
+      <%= link_to '✦ Favorites ', user_favorites_path %>  
+      <%= link_to '✦ Subscriptions ', user_subscriptions_path %>  
+      <%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'button' %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> |
+      <%= link_to "Sign in", new_user_session_path %>
+    <% end %>
+  </div>
+    <% if flash.any? %>
+      <div class="flash-messages">
+        <% flash.each do |type, message| %>
+          <div class="flash-message <%= type %>">
+            <%= message %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

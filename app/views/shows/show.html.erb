@@ -1,0 +1,40 @@
+<div class="show-reviews">
+  <h2>Reviews</h2>
+  
+  <% if user_signed_in? %>
+    <div class="review-form">
+      <%= form_with(model: [@show, Review.new], local: true) do |f| %>
+        <div class="field">
+          <%= f.label :rating %>
+          <%= f.select :rating, options_for_select(1..5) %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :content, "Review" %>
+          <%= f.text_area :content, required: true %>
+        </div>
+        
+        <%= f.submit "Submit Review", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <div class="reviews-list">
+    <% @show.reviews.includes(:user).each do |review| %>
+      <div class="review">
+        <div class="review-header">
+          <span class="rating">
+            <%= "★" * review.rating %><%= "☆" * (5 - review.rating) %>
+          </span>
+          <span class="author">by <%= review.user.email %></span>
+        </div>
+        <div class="review-content">
+          <%= review.content %>
+        </div>
+        <div class="review-date">
+          Posted <%= time_ago_in_words(review.created_at) %> ago
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

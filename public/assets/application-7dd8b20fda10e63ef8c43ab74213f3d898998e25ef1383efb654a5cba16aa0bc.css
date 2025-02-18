@@ -1,0 +1,530 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center; 
+  gap: 5px;
+  color: #4a5568;
+  text-align: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.user-info a {
+  text-decoration: none;
+  color: #4a5568;
+  transition: color 0.2s;
+}
+
+.user-info a:hover {
+  color: #2d3748;
+}
+/*Login container*/
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-input {
+  width: 92%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.podcasts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  background-color: #f5f5f5;
+}
+
+/* Podcast card */
+.podcast-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.podcast-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Podcast title */
+.podcast-title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2d3748;
+  text-decoration: none;
+  margin-bottom: 15px;
+  transition: color 0.2s;
+}
+
+.podcast-title:hover {
+  color: #4a5568;
+}
+
+/* Search form */
+.form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+input[type="submit"] {
+  background: #4a90e2;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+input[type="submit"]:hover {
+  background: #357abd;
+}
+
+/* ----------show.html.erb---------- */
+
+/* Main container */
+.podcast-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Subscribe container */
+.subscribe-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid #edf2f7;
+}
+
+/* Podcast title */
+.podcast-details h1 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 0.1rem;
+}
+
+.podcast-details h4 {
+  font-size: 1.2rem;
+  color: #2d3748;
+  margin: 0.75rem;
+}
+
+/* Player container */
+.player-container {
+  margin: 20px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Buttons display */
+.podcast-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #edf2f7;
+  margin-bottom: 10px;
+}
+
+/* Current user display */
+.current-user {
+  background: #f7fafc;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.current-user span {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Feedback form */
+.feedback-form {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.field select {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  min-height: 100px;
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background: #4299e1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+input[type="submit"]:hover {
+  background: #3182ce;
+}
+
+/* Existing feedbacks */
+.existing-feedbacks {
+  margin-top: 30px;
+}
+
+.existing-feedbacks h3 {
+  font-size: 1.5rem;
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+.feedback-item {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-item p {
+  margin: 8px 0;
+  color: #4a5568;
+}
+
+/* Feedback actions */
+.feedback-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+  border: none;
+}
+
+.button:not(.delete) {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.button:not(.delete):hover {
+  background: #e2e8f0;
+}
+
+.button.delete {
+  background: #feb2b2;
+  color: #c53030;
+}
+
+.button.delete:hover {
+  background: #fc8181;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .podcast-details {
+    padding: 15px;
+  }
+
+  .podcast-details h1 {
+    font-size: 1.5rem;
+  }
+
+  .feedback-form {
+    padding: 15px;
+  }
+}
+
+.podcast-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.episode-title {
+  font-size: 2rem;
+  color: #333;
+}
+
+.episode-info h2 {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.episode-info span {
+  color: #000;
+  font-weight: bold;
+}
+
+.episode-image {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.audio-preview {
+  margin: 10px 0;
+}
+
+/*Episodes*/
+.episode-list {
+  list-style-type: none;
+  
+}
+
+.episode-link {
+  display: inline-block;
+  padding: 12px;
+  margin: 6px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: #D5E0EC;
+  color: #5683B3;
+  width: 95%;
+}
+
+.episode-link:hover {
+  background: #B9CBDF;
+  color: #466F9B;
+}
+
+.feedback-form {
+  margin-top: 30px;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.rating-select,
+.comment-textarea,
+.submit-button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.comment-textarea {
+  width: 98%;
+}
+
+.submit-button {
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+.feedback-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+
+.feedback-actions .button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.edit-button {
+  background-color: #007bff;
+}
+
+.delete-button {
+  background-color: #dc3545;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.align {
+  margin-left: 30px;
+}
+
+.episode-status {
+  padding-bottom: 10px;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status.played {
+  background-color: #9AE6B4;
+  color: #276749;
+}
+
+
+.status.unplayed {
+  background-color: #FEB2B2; 
+  color: #9B2C2C; 
+}
+
+.status.finished {
+  background-color: #90CDF4; 
+  color: #2C5282; 
+}
+
+.status.unfinished {
+  background-color: #FBD38D; 
+  color: #975A16; 
+}
+
+.status.none {
+  background-color: #EDF2F7; 
+  color: #718096; 
+}
+
+p, div, h1, h2, h3, h4, h5, h6 {
+  margin: 8px 0px 8px;
+}
+
+.flash-messages {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+}
+
+.flash-message {
+  padding: 12px 24px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  text-align: center;
+  animation: slideIn 0.5s ease-out,
+             fadeOut 0.5s ease-out 3s forwards;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.flash-message.notice {
+  background-color: #90CDF4; /* light blue */
+  color: #2C5282; /* dark blue */
+  border: 1px solid #4299e1;
+}
+
+.flash-message.alert {
+  background-color: #FEB2B2; /* light red */
+  color: #9B2C2C; /* dark red */
+  border: 1px solid #F56565;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ----------STAR RATING---------- */
+

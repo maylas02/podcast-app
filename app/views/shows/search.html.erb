@@ -1,0 +1,17 @@
+<h1>Search Podcasts</h1>
+
+<%= form_with url: search_shows_path, method: :get, local: true do |f| %>
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @shows %>
+  <div class="results">
+    <% @shows.each do |show| %>
+      <div class="show">
+        <h3><%= show.name %></h3>
+        <p><%= show.description %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

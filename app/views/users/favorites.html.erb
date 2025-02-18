@@ -1,0 +1,46 @@
+<div class="favorites-container">
+  <h1 class="align">My Favorites</h1>
+  
+  <div class="podcasts-grid">
+    <% @favorite_episodes.each do |episode| %>
+      <div class="podcast-card">
+        <div class="episode-status">
+          <% if episode.played %>
+            <span class="status played">Played</span>
+          <% else %>
+            <span class="status unplayed">Not Played</span>
+          <% end %>
+          
+          <% if episode.finished %>
+            <span class="status finished">Finished</span>
+          <% else %>
+            <span class="status unfinished">Not Finished</span>
+          <% end %>
+        </div>
+
+        <h2 class="podcast-title">
+          <%= link_to episode.name, podcast_path(episode.spotify_id) %>
+        </h2>
+        
+        <div>
+          <p class="show-name">Show: <%= episode.show %></p>
+        </div>
+
+        <div class="episode-actions">
+          <%= button_to 'Remove from Favorites', 
+                      unfavorite_podcast_path(id: episode.spotify_id), 
+                      method: :delete,
+                      class: 'button',
+                      form: { data: { turbo_confirm: 'Are you sure?' } } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+  <% if @favorite_episodes.empty? %>
+    <div class="empty-state">
+      <p>You haven't added any favorites yet!</p>
+      <%= link_to 'Browse Podcasts', podcasts_path, class: 'browse-link' %>
+    </div>
+  <% end %>
+</div> 

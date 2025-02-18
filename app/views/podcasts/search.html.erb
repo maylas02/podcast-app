@@ -1,0 +1,28 @@
+<%= form_with url: podcasts_path, method: :get, local: true, html: { class: "form" } do |form| %>
+  <%= form.label :search, "Search for Podcasts"%>
+  <%= form.text_field :search %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @podcast.present? %>
+  <div class="podcasts-grid">
+    <% @podcast.each do |pod| %>
+      <div class="podcast-card">
+        <%= link_to pod.name, podcast_path(id: pod.id), class: "podcast-title" %>
+        
+        <div class="search-player">
+          <iframe 
+            style="border-radius:12px" 
+            src="https://open.spotify.com/embed/episode/<%= pod.id %>" 
+            width="100%" 
+            height="152" 
+            frameborder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

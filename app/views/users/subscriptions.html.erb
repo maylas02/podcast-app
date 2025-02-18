@@ -1,0 +1,14 @@
+<h1 class="align">My Subscriptions</h1>
+
+<% if @subscriptions.any? %>
+  <div class="podcasts-grid">
+    <% @subscriptions.each do |subscription| %>
+      <div class="podcast-card">
+        <h3><%= subscription.show_name %></h3>
+        <%= button_to "Unsubscribe", subscription_path(subscription), method: :delete, class: "button", data: { confirm: "Are you sure you want to unsubscribe from #{subscription.show_name}?" } %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>You have not subscribed to any shows.</p>
+<% end %>
